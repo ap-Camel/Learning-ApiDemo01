@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using APIDEMO01.Models;
 using APIDEMO01.SQL;
 using APIDEMO01.SQL.Tables;
+using APIDEMO01.SQL.Interfaces;
 //using APIDEMO01.Dtos;
 
 

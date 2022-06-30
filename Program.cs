@@ -7,15 +7,10 @@ using APIDEMO01.SQL.Tables;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
-
-
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
-builder.Services.AddSingleton<IStudentData, StudentData>();
 builder.Services.AddSingleton<IQuestionData, QuestionData>();
-
+builder.Services.AddTransient<IAnswerData, AnswerData>();
 
 
 builder.Services.AddControllers();
