@@ -40,8 +40,6 @@ namespace APIDEMO01.SQL.Tables{
             int num = rand.Next(count);
             arr[num] = correctAnswer;
 
-            
-
             for(int i = 0; i < count;) {
 
                 if(arr[i] == correctAnswer) {

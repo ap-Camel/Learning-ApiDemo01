@@ -30,7 +30,7 @@ namespace APIDEMO01.Controllers{
             List<Question> questions = await questionData.getQuestions();
 
             foreach(Question q in questions) {
-                examQuestions.Add(new ExamQuestions() {question = q, answers = await answerData.getAnswers(q.ID)});
+                examQuestions.Add(new ExamQuestions() {question = q, answers = await answerData.answersDefault(q.ID)});
             }
 
             return examQuestions;
