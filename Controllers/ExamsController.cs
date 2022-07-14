@@ -43,8 +43,11 @@ namespace APIDEMO01.Controllers{
             Answer correctAnswer;
 
             foreach(EvaluateExam e in ee) {
+                if(e.questionID == 0) {
+                    continue;
+                }
                 var listOfAnswers = await answerData.getAnswers(e.questionID);
-                correctAnswer = listOfAnswers.Where(x => x.answerType == true).FirstOrDefault();
+                correctAnswer = listOfAnswers.Where(x => x.answerType == true).FirstOrDefault(new Answer(){description = ""});
                 if(e.answer == correctAnswer.description) {
                     mark += 10;
                 }

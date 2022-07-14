@@ -26,11 +26,12 @@ namespace APIDEMO01.SQL.Tables{
 
             List<Answer> allAnswers = await getAnswers(id);
             
-            Answer correctAnswer = allAnswers.Where(x => Convert.ToInt32(x.answerType) == 1).FirstOrDefault();
+            Answer correctAnswer = allAnswers.Where(x => Convert.ToInt32(x.answerType) == 1).FirstOrDefault(new Answer(){description = ""});
             List<Answer> falseAnswers = allAnswers.Where(x => Convert.ToInt32(x.answerType) == 0).ToList<Answer>();
 
             // this part is if there were less than 4 answers
-            int count = falseAnswers.Count() + 1;
+            //int count = falseAnswers.Count() + 1;
+            int count = correctAnswer.description != "" ? falseAnswers.Count() + 1 : falseAnswers.Count(); 
             if(count >= 4){
                 count = 4;
             }
@@ -38,7 +39,7 @@ namespace APIDEMO01.SQL.Tables{
             Answer[] arr = new Answer[count];
             Random rand = new Random();
             int num = rand.Next(count);
-            arr[num] = correctAnswer;
+            arr[num] = correctAnswer.description != "" ? correctAnswer : null;
 
             for(int i = 0; i < count;) {
 
