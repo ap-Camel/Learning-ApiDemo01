@@ -1,7 +1,9 @@
+using System.Text;
 using APIDEMO01.SQL;
 using APIDEMO01.SQL.Interfaces;
 using APIDEMO01.SQL.Tables;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
@@ -11,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 builder.Services.AddSingleton<IQuestionData, QuestionData>();
 builder.Services.AddTransient<IAnswerData, AnswerData>();
+builder.Services.AddSingleton<IUsersData, UsersData>();
 
 builder.Services.AddCors(options =>
 {
@@ -20,6 +23,17 @@ builder.Services.AddCors(options =>
                           //policy.WithOrigins("http://localhost:3000").AllowAnyHeader();
                           policy.AllowAnyOrigin().AllowAnyHeader();
                       });
+});
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]))
+    };
 });
 
 
@@ -40,6 +54,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

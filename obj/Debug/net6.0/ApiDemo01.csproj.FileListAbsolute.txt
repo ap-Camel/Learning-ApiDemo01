@@ -40,3 +40,4 @@ C:\Dev\Cs\learning\Demo01\ApiDemo01\obj\Debug\net6.0\refint\ApiDemo01.dll
 C:\Dev\Cs\learning\Demo01\ApiDemo01\obj\Debug\net6.0\ApiDemo01.pdb
 C:\Dev\Cs\learning\Demo01\ApiDemo01\obj\Debug\net6.0\ApiDemo01.genruntimeconfig.cache
 C:\Dev\Cs\learning\Demo01\ApiDemo01\obj\Debug\net6.0\ref\ApiDemo01.dll
+C:\Dev\Cs\learning\Demo01\ApiDemo01\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll

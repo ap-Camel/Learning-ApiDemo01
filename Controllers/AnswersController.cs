@@ -7,10 +7,12 @@ using APIDEMO01.SQL;
 using APIDEMO01.SQL.Tables;
 using APIDEMO01.SQL.Interfaces;
 using APIDEMO01.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIDEMO01.Controllers{
     [ApiController]
     [Route("answers")]
+    [Authorize(Roles = "teacher")]
     public class AnswersController{
 
         private readonly IAnswerData answerData;
