@@ -13,7 +13,7 @@ namespace APIDEMO01.Controllers{
     [ApiController]
     [Route("answers")]
     [Authorize(Roles = "teacher")]
-    public class AnswersController{
+    public class AnswersController : ControllerBase {
 
         private readonly IAnswerData answerData;
 

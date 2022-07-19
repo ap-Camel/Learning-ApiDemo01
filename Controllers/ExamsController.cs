@@ -12,7 +12,7 @@ namespace APIDEMO01.Controllers{
 
     [ApiController]
     [Route("exams")]
-    public class ExamsController{
+    public class ExamsController : ControllerBase {
         private readonly IAnswerData answerData;
         private readonly IQuestionData questionData;
 

@@ -11,7 +11,7 @@ namespace APIDEMO01.Controllers{
 
     [ApiController]
     [Route("questions")]
-    public class QuestionsCOntroller{
+    public class QuestionsCOntroller : ControllerBase {
         private readonly IQuestionData questionData;
 
         public QuestionsCOntroller(IQuestionData questionData) {

@@ -13,7 +13,7 @@ namespace APIDEMO01.Controllers {
 
     [ApiController]
     [Route("token")]
-    public class AuthController {
+    public class AuthController : ControllerBase {
 
         private readonly IUsersData usersData;
         private readonly IConfiguration config;
@@ -29,10 +29,10 @@ namespace APIDEMO01.Controllers {
             var user = await usersData.verifyUser(loginUser.email, loginUser.password);
 
             if(user is null) {
-                return "user does not exist";
+                return BadRequest("Invalid credentials");
             }
 
-            return createToken(user);            
+            return Ok(createToken(user));            
         }
 
 

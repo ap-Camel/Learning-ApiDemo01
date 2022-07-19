@@ -6,7 +6,7 @@ namespace APIDEMO01.Controllers {
 
     [ApiController]
     [Route("users")]
-    public class UsersController {
+    public class UsersController : ControllerBase {
 
         private readonly IUsersData usersData;
 
