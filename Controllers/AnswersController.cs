@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace APIDEMO01.Controllers{
     [ApiController]
     [Route("answers")]
-    [Authorize(Roles = "teacher")]
+    [Authorize(Roles = "student")]
     public class AnswersController : ControllerBase {
 
         private readonly IAnswerData answerData;

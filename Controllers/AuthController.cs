@@ -26,13 +26,23 @@ namespace APIDEMO01.Controllers {
         [HttpPost]
         public async Task<ActionResult<string>> logIn(LoginUser loginUser) {
 
-            var user = await usersData.verifyUser(loginUser.email, loginUser.password);
+            var userVerify = await usersData.verifyUser(loginUser.email, loginUser.password); 
 
-            if(user is null) {
+            if(userVerify is null) {
                 return BadRequest("Invalid credentials");
             }
 
-            return Ok(createToken(user));            
+            var loginReturn = new LoginReturn() {
+                token = createToken(userVerify),
+                user = new UsersModel() {
+                    firstName = userVerify.firstName,
+                    lastName = userVerify.lastName,
+                    userType = userVerify.userType,
+                    email = userVerify.email
+                }
+            };
+
+            return Ok(loginReturn);            
         }
 
 

@@ -1,3 +1,4 @@
+using APIDEMO01.Dtos;
 using APIDEMO01.Models;
 using APIDEMO01.SQL.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,19 @@ namespace APIDEMO01.Controllers {
         }
 
         [HttpPost]
-        public async Task<bool> insertUser(UsersModel user) {
-            return await usersData.insertUser(user);
+        public async Task<ActionResult<SignupUser>> insertUser(SignupUser user) {
+
+            UsersModel verify = await usersData.emailExists(user.email);
+            if(verify is null) {
+                bool result = await usersData.insertUser(user);
+                 if(result) {
+                return Ok(user);
+                }
+            } else {
+                return Conflict("email already exists");
+            }
+            
+            return BadRequest("sign up was not successful");
         }
 
         // public async Task<ActionResult<string>> login() {

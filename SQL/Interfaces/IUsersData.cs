@@ -1,3 +1,4 @@
+using APIDEMO01.Dtos;
 using APIDEMO01.Models;
 
 namespace APIDEMO01.SQL.Interfaces {
@@ -5,7 +6,8 @@ namespace APIDEMO01.SQL.Interfaces {
         
         Task<List<UsersModel>> getUsers();
         Task<UsersModel> verifyUser(string email, string pass);
-        Task<bool> insertUser(UsersModel user);
+        Task<bool> insertUser(SignupUser user);
+        Task<UsersModel> emailExists(string email);
         
     }
 }

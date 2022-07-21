@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using APIDEMO01.Dtos;
 using APIDEMO01.Models;
 using APIDEMO01.SQL.Interfaces;
 
@@ -31,25 +32,31 @@ namespace APIDEMO01.SQL.Tables {
                 }
             }
 
-            string sql = $"select * from users where email = '{email}' and CONVERT(varchar(255), pass) = '{Sb.ToString()}'";
+            string sql = $"select top 1 * from users where email = '{email}' and CONVERT(varchar(255), pass) = '{Sb.ToString()}'";
 
             return await _db.LoadSingle<UsersModel>(sql);
         }
 
-        public async Task<bool> insertUser(UsersModel user) {
+        public async Task<UsersModel> emailExists(string email) {
+            string sql = $"select top 1 * from users where email = '{email}'";
+
+            return await _db.LoadSingle<UsersModel>(sql);
+        }
+
+        public async Task<bool> insertUser(SignupUser user) {
 
             StringBuilder Sb = new StringBuilder();
             
             using(SHA256 myHash = SHA256.Create()) {
                 Encoding enc = Encoding.UTF8;
-                Byte[] result = myHash.ComputeHash(enc.GetBytes(user.pass));
+                Byte[] result = myHash.ComputeHash(enc.GetBytes(user.password));
 
                 foreach (Byte b in result) {
                     Sb.Append(b.ToString("x2"));
                 }
             }
 
-            string sql = $"insert into users values ('{user.firstName}', '{user.lastName}', '{user.userType}', '{user.email}', '{Sb.ToString()}')";
+            string sql = $"insert into users values ('{user.firstName}', '{user.lastName}', '{user.role}', '{user.email}', '{Sb.ToString()}')";
 
             return await _db.insertData(sql);
         }
